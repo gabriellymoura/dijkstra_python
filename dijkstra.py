@@ -1,33 +1,29 @@
 
 import numpy as np
 
-
 class Grafo:
-
     def __init__(self):
-        self.num = 7
+        self.num = 19
         self.mat = np.zeros((self.num,self.num),dtype=int)
         self.visitado = np.zeros((self.num), dtype=int)
         self.anterior = [-1]*self.num
         self.distancia = [9999]*self.num
 
-
     def imprimir(self):
-        for i in range (1,7):
-            for j in range (1,7):
+        for i in range (1,self.num):
+            for j in range (1,self.num):
                 print(self.mat[i][j], end='  ')
             print('\n')
 
 
     def imprimirVetor(self):
-        for j in range (1,7):
+        print('Vetor Visitado: ')
+        for j in range (1,self.num):
             print(self.visitado[j], end='  ')
-
 
     def insere(self, v1,v2,peso):
         self.mat[v1][v2] = peso
         self.mat[v2][v1] = peso
-
 
     def procura(self,dis, visi, n):
         menor = 0
@@ -38,8 +34,7 @@ class Grafo:
                 menor=i
         return menor
 
-
-    def dijkstra(self,inicial):
+    def dijkstra1(self,inicial):
         aux = self.num
         self.distancia[inicial] = 0
         self.anterior[inicial] = 0
@@ -57,28 +52,39 @@ class Grafo:
             self.visitado[menor] = 1
             aux = aux-1
 
-
-
-
 g = Grafo()
 g.__init__()
-g.insere(1,2,4)
-g.insere(1,3,2)
-g.insere(3,2,1)
-g.insere(3,4,8)
-g.insere(3,5,10)
-g.insere(2,4,5)
-g.insere(4,6,6)
-g.insere(4,5,2)
-g.insere(5,6,3)
+g.insere(1,2,5)
+g.insere(1,3,1)
+g.insere(3,4,2)
+g.insere(4,5,3)
+g.insere(3,6,3)
+g.insere(6,7,1)
+g.insere(7,2,5)
+g.insere(5,8,1)
+g.insere(8,6,1)
+g.insere(2,9,3)
+g.insere(7,10,2)
+g.insere(9,11,1)
+g.insere(11,10,2)
+g.insere(8,12,2)
+g.insere(10,12,2)
+g.insere(11,13,2)
+g.insere(12,14,2)
+g.insere(14,15,3)
+g.insere(14,16,2)
+g.insere(13,16,2)
+g.insere(15,17,3)
+g.insere(13,17,4)
+g.insere(17,18,1)
+g.insere(16,18,1)
 
 g.imprimir()
 print('\n \n')
 
-g.dijkstra(1)
+g.dijkstra1(1)
 
-for i in range(1, g.num):
-    print(i, '-> ', g.distancia[i], ' - ', g.anterior[i])
+for j in range(1, g.num):
+    print(j,'->', g.distancia[j], ' - ', g.anterior[j])
 
-
-
+g.imprimirVetor()
